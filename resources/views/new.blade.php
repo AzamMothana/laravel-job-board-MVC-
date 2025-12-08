@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1 style="color: red">'azam laravel project NEW'</h1>
+    <h1 style="color: red">'ali laravel project NEW'</h1>
     
 </body>
 </html>
