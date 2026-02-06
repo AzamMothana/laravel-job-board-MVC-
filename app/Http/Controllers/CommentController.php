@@ -13,9 +13,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $data = Comment::paginate(5);
-        //pass the data to the view
-        return view('comment.index' , ['comments' => $data , "pageTitle"=> 'Comment']);
+        // $data = Comment::paginate(5);
+        // //pass the data to the view
+        // return view('comment.index' , ['comments' => $data , "pageTitle"=> 'Comment']);
+        redirect('/blog');
     }
 
     /**
@@ -23,7 +24,8 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('comment.create' ,["pageTitle"=> 'Comment - create new comment'] );
+        redirect('/blog');
+        // return view('comment.create' ,["pageTitle"=> 'Comment - create new comment'] );
     }
 
     /**
@@ -31,7 +33,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //todo 
+        $post = Post::findOrFail($request->input("post_id"));
+
+        $comment = new Comment();
+
+        $comment->author = $request->input("author");
+        $comment->content = $request->input("content");
+        $comment->post_id = $request->input("post_id");
+
+        $comment->save();
+
+        return redirect("/blog/{$post->id}")->with('success', 'Comment Added successfully');
     }
 
     /**
@@ -49,8 +61,9 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        $comment = Comment::find($id);
-        return view('comment.edit' , ['comment' => $comment ,'pageTitle' => 'edit comment']);
+        // $comment = Comment::find($id);
+        // return view('comment.edit' , ['comment' => $comment ,'pageTitle' => 'edit comment']);
+        
     }
 
     /**
